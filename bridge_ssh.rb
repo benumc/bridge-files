@@ -3,11 +3,16 @@ $0 = 'bridge_ssh'
 #Process.daemon
 $udp_socket = UDPSocket.new
 $udp_socket.bind('127.0.0.1', 0)
+puts `lsof -nP -i4TCP:25803 | grep LISTEN`
 $tcp_server = TCPServer.new('127.0.0.1',25803)
+puts('listening on 25803')
 $local_ip = Socket.ip_address_list.to_s[/ ((?!127)\d\d?\d?\.[0-9]+\.[0-9]+\.[0-9]+)/,1]
+puts("local ip: #{$local_ip}")
+puts("bridge file: #{`ls /tmp/bridge_ssh`}")
 
 def udp_send(dat)
-  $udp_socket.send("#{dat}\n", 0, $local_ip, 25803)
+  #$udp_socket.send("#{dat}\n", 0, $local_ip, 25803)
+  puts("sending #{dat}\n")
 end
 
 Thread.abort_on_exception = true
@@ -23,6 +28,7 @@ def exit_watch
       next unless c > 10
       udp_send("status:running=YES")
       c = 0
+      exit
     end
     udp_send("status:running=NO")
     exit
