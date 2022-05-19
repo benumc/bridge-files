@@ -9,6 +9,7 @@ puts('listening on 25803')
 $local_ip = Socket.ip_address_list.to_s[/ ((?!127)\d\d?\d?\.[0-9]+\.[0-9]+\.[0-9]+)/,1]
 puts("local ip: #{$local_ip}")
 puts("bridge file: #{`ls /tmp/bridge_ssh`}")
+exit
 
 def udp_send(dat)
   #$udp_socket.send("#{dat}\n", 0, $local_ip, 25803)
@@ -23,7 +24,6 @@ def exit_watch
     c = 0
     loop do
       sleep(5)
-      exit
       break if($mt!=mt)
       c = c + 1
       next unless c > 10
