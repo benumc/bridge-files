@@ -1,6 +1,6 @@
 require 'socket'
 $0 = 'bridge_ssh'
-Process.daemon
+#Process.daemon
 $udp_socket = UDPSocket.new
 $udp_socket.bind('127.0.0.1', 0)
 $tcp_server = TCPServer.new('127.0.0.1',25803)
