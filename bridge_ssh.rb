@@ -1,5 +1,7 @@
 require 'socket'
-puts("Source file: #{`ls "$(echo ~/*/*/*/u*/*/bridge_ssh.xml)"`}")
+puts("Source file a: #{`ls "$(echo ~/*/*/u*/*/bridge_ssh.xml)"`}")
+puts("Source file b: #{`ls "$(echo ~/*/*/*/u*/*/bridge_ssh.xml)"`}")
+puts("Source file c: #{`ls "$(echo ~/*/*/*/*/u*/*/bridge_ssh.xml)"`}")
 puts("Existing listeners:\t #{`lsof -nP -i4TCP:25803 | grep LISTEN`}")
 $tcp_server = TCPServer.new('127.0.0.1',25803)
 puts("listening on:\t 25803")
